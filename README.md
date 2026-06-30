@@ -63,14 +63,6 @@ The "model" — the count matrix `N` and the character mappings `stoi`/`itos` �
 
 The validity rate is the key limitation metric for this approach (see below) and was measured directly by running the trained model end-to-end and checking RDKit parse success on a 200-sample generation batch.
 
-## Limitations
-
-- **No grammatical awareness:** SMILES syntax has long-range, context-dependent rules — every open parenthesis `(` needs a matching `)`, every ring-bond digit needs a matching closure digit elsewhere in the string, and atoms have valid valence constraints. A bigram model only ever looks at the *immediately preceding character*, so it has no mechanism to "remember" that a parenthesis or ring number was opened earlier in the string. This is the direct cause of the ~21% validity rate — most failures are unmatched brackets/rings or invalid valences.
-- **No long-range structure:** Because the model has a context window of exactly one character, it cannot learn motifs longer than two characters (e.g., common functional groups, aromatic ring patterns) except indirectly through chained bigram transitions.
-- **Most "valid" generations are trivial:** A meaningful fraction of the chemically valid outputs are very short or simple (e.g., single halogen atoms), since short strings have fewer opportunities to violate SMILES grammar. The model isn't yet reliably generating valid *and* structurally interesting molecules at the same rate.
-- **No property control:** Generation is unconditional — there is no way to request molecules with specific properties (molecular weight, logP, etc.); the model simply samples from the statistical distribution of the training set.
-- **No uniqueness/novelty filtering:** The current evaluation reports validity and similarity, but does not explicitly measure what fraction of valid generations are duplicates of each other or near-duplicates of the training set beyond the Tanimoto similarity scores.
-
 ## Files
 
 | File | Description |
