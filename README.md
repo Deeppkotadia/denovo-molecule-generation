@@ -75,29 +75,10 @@ The validity rate is the key limitation metric for this approach (see below) and
 
 | File | Description |
 |---|---|
-| `MDSI_Assignment_6.ipynb` | Full notebook: data loading, bigram counting, generation, RDKit validity/similarity evaluation, visualization |
+| `project.ipynb` | Full notebook: data loading, bigram counting, generation, RDKit validity/similarity evaluation, visualization |
 | `Data_for_GenAI.csv` | Training dataset — 3,000 SMILES strings |
 | `bigram_model.pkl` | Saved model state (count matrix + character mappings), produced by the notebook |
 | `charmatrix.png` | Heatmap visualization of the bigram count matrix across all character pairs |
 | `tanimotosim.png` | Histogram of Tanimoto similarity scores between generated and training molecules |
 
-## Requirements
 
-```
-torch
-rdkit
-numpy
-matplotlib
-joblib
-```
-
-## Usage
-
-Run the notebook top to bottom. It will:
-1. Load and parse `Data_for_GenAI.csv`
-2. Build the character vocabulary and bigram count matrix
-3. Save a visualization of the matrix to `charmatrix.png`
-4. Generate 1,000 candidate SMILES strings
-5. Filter for validity and compute Tanimoto similarity against the training set
-6. Save the similarity distribution to `tanimotosim.png`
-7. Persist the trained model to `bigram_model.pkl`
